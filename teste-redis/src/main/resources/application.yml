@@ -1,0 +1,52 @@
+server:
+  port: 8081  # 设置服务器端口为8081
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5
+      min-idle: 5
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat,wall
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        login-username: admin
+        login-password: 123456
+    url: jdbc:mysql://192.168.196.128:3306/seckill
+    username: root
+    password: 20021213
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  
+  data:
+    redis:
+      host: 192.168.196.128
+      port: 6379
+    
+  cache:
+    type: redis
+    redis: 
+      time-to-live: 60000 # 缓存过期时间：60秒
+      cache-null-values: true
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl 
+
+logging:
+  level:
+    org.tech: DEBUG
+    com.baomidou.mybatisplus: DEBUG
+    org.springframework.cache: TRACE 
